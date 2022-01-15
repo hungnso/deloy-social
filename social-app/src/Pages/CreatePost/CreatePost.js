@@ -6,11 +6,14 @@ import Ckeditor from "./Ckeditor"
 import request from "../../Api/request";
 import ListFollow from '../../Components/Follow/ListFollow';
 import useAuth from '../../hooks/useAuth';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom'
 
 export default function CreatePost() {
   const userMe = useAuth();
   const [image, setImage] = React.useState();
   const [text, setText] = React.useState('');
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     return () => {
@@ -35,13 +38,9 @@ export default function CreatePost() {
     }
   }
 
-  const handleBlur = (data) => {
-    setText(data)
-  }
-
   const handleClickCreatepost = async () => {
     if (text === '') {
-      alert('Nội dung không được để trống')
+      toast.success('Content is required !')
     } else {
       try {
         let bodyFormData = new FormData();
@@ -65,12 +64,10 @@ export default function CreatePost() {
           data: data,
         })
 
-        alert("Tạo bài viết thành công")
-        console.log(post)
-        setText('')
-        setImage('')
+        toast.success('Create post success!')
+        navigate('/')
       } catch (err) {
-        alert("Tạo bài viết thất bại")
+        toast.error('Create post error!')
       }
     }
   }
@@ -86,7 +83,7 @@ export default function CreatePost() {
             <input type='file' className='form-control' onChange={handleChangeFile} />
           </div>
           {renderImage()}
-          <Ckeditor handleBlur={handleBlur} text={text} />
+          <Ckeditor value={text} setValue={setText} />
           <button className='btn btn-primary mt-2' onClick={handleClickCreatepost}>Create</button>
         </div>
       </ContentLayout>

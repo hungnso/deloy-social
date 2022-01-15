@@ -34,13 +34,16 @@ const createPost = async (req, res) => {
 }
 
 const getAllPosts = async (req, res) => {
+  const { skip, limit } = req.query;
   const allPosts = await PostModel
     .find()
-    .sort({ createdAt: -1 })
     .populate({
       path: 'userId',
       select: 'username avatar'
     })
+    .sort({ createdAt: -1 })
+    .skip(Number(skip))
+    .limit(4)
 
   res.send({
     success: true,

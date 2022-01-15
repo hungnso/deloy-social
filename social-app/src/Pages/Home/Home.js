@@ -9,20 +9,6 @@ import ListPosts from "../../Components/ListPosts/ListPosts";
 import useAuth from '../../hooks/useAuth'
 export default function Home() {
   const userMe = useAuth();
-  const [posts, setPosts] = React.useState([])
-  const fetchPosts = async () => {
-    const res = await request({
-      url: '/posts',
-      method: 'GET',
-    })
-    if (res.data) {
-      setPosts(res.data)
-    }
-  }
-
-  React.useEffect(() => {
-    fetchPosts()
-  }, [])
 
   return (
     <MainLayout>
@@ -31,7 +17,7 @@ export default function Home() {
           <h4>Home</h4>
         </div>
         <div className='flex-grow-1 overflow-auto'>
-          <ListPosts posts={posts} />
+          <ListPosts />
         </div>
       </ContentLayout>
       <RightSidebarLayout>

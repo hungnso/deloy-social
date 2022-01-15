@@ -13,7 +13,7 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   return (
-    <div className="navbar navbar-dark bg-primary align-items-start d-flex flex-column h-100">
+    <div className="navbar navbar-dark bg-primary align-items-start d-flex flex-column h-100 p-0">
       <nav className="nav flex-column px-1 ">
         <div className="overflow-hidden m-auto my-3">
           <img className='rounded-circle border border-white'
