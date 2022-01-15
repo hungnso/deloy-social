@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import momentDisplay from "../../lib/moment";
 import EditPost from "../PostCard/EditPost";
 
-export default function UserTimeCreateAt({ post }) {
+export default function UserTimeCreateAt({ post, handleDeletePost }) {
   return (
     <div className="header-post">
       <Link
@@ -29,7 +29,7 @@ export default function UserTimeCreateAt({ post }) {
           </div>
         </div>
       </Link>
-      <EditPost post={post} />
+      <EditPost post={post} handleDeletePost={handleDeletePost} />
     </div>
   );
 }

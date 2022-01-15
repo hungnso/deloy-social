@@ -17,73 +17,65 @@ const CommentModel = require("../comment/comment");
 // }
 
 const createPost = async (req, res) => {
-  const { user } = req
+  const { user } = req;
   const { content, images } = req.body;
 
   const newPost = await PostModel.create({
     userId: user._id,
     content,
-    images
+    images,
   });
 
   res.send({
     success: true,
     data: newPost,
   });
-
-}
+};
 
 const getAllPosts = async (req, res) => {
   const { skip, limit } = req.query;
-  const allPosts = await PostModel
-    .find()
+  const allPosts = await PostModel.find()
     .populate({
-      path: 'userId',
-      select: 'username avatar'
+      path: "userId",
+      select: "username avatar",
     })
     .sort({ createdAt: -1 })
     .skip(Number(skip))
-    .limit(4)
+    .limit(4);
 
   res.send({
     success: true,
-    data: allPosts
-  })
-}
+    data: allPosts,
+  });
+};
 
 const getPostId = async (req, res) => {
-  const { postId } = req.params
+  const { postId } = req.params;
 
-  const post = await PostModel
-    .findById(postId)
-    .populate({
-      path: 'userId',
-      select: 'username avatar'
-    })
+  const post = await PostModel.findById(postId).populate({
+    path: "userId",
+    select: "username avatar",
+  });
 
   res.send({
     success: true,
-    data: post
-  })
-}
+    data: post,
+  });
+};
 
 const getPostByUserId = async (req, res) => {
-  const { userId } = req.params
+  const { userId } = req.params;
 
-  const post = await PostModel
-    .find({userId})
-    .populate({
-      path: 'userId',
-      select: 'username avatar'
-    })
+  const post = await PostModel.find({ userId }).populate({
+    path: "userId",
+    select: "username avatar",
+  });
 
   res.send({
     success: true,
-    data: post
-  })
-}
-
-
+    data: post,
+  });
+};
 
 // updatePost: async (req, res) => {
 //   try {
@@ -114,8 +106,8 @@ const getPostByUserId = async (req, res) => {
 // },
 
 const likePost = async (req, res) => {
-  const { postId } = req.params
-  const { user } = req
+  const { postId } = req.params;
+  const { user } = req;
 
   const postUpdate = await PostModel.findOneAndUpdate(
     { _id: postId },
@@ -125,13 +117,13 @@ const likePost = async (req, res) => {
 
   res.send({
     success: true,
-    data: postUpdate
-  })
-}
+    data: postUpdate,
+  });
+};
 
 const unLikePost = async (req, res) => {
-  const { postId } = req.params
-  const { user } = req
+  const { postId } = req.params;
+  const { user } = req;
 
   const postUpdate = await PostModel.findOneAndUpdate(
     { _id: postId },
@@ -141,24 +133,36 @@ const unLikePost = async (req, res) => {
 
   res.send({
     success: true,
-    data: postUpdate
-  })
-}
+    data: postUpdate,
+  });
+};
 
 const incCommentPost = async (req, res) => {
-  const { postId } = req.params
+  const { postId } = req.params;
 
   const updateIncCommentPost = await PostModel.findOneAndUpdate(
     { _id: postId },
     { $inc: { commentCount: 1 } },
     { new: true }
-  )
+  );
 
   res.send({
     success: true,
-    data: updateIncCommentPost
-  })
-}
+    data: updateIncCommentPost,
+  });
+};
+const deletePost = async (req, res) => {
+  const { postId } = req.params;
+
+  const deletePost = await PostModel.findByIdAndDelete(
+    { _id: postId },
+    { new: true }
+  );
+  res.send({
+    success: 1,
+    data: deletePost,
+  });
+};
 
 // getUserPosts: async (req, res) => {
 //   try {
@@ -218,5 +222,6 @@ module.exports = {
   unLikePost,
   getPostId,
   incCommentPost,
-  getPostByUserId
-}
+  getPostByUserId,
+  deletePost,
+};

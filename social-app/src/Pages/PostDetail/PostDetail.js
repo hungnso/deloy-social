@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ContentLayout from "../../Components/Layout/ContentLayout";
 import MainLayout from "../../Components/Layout/MainLayout";
 import RightSidebarLayout from "../../Components/Layout/RightSidebarLayout";
@@ -14,7 +14,7 @@ import useAuth from "../../hooks/useAuth";
 import socketClient from "../../socket";
 
 export default function PostDetail() {
-  const [loading, setLoading] = React.useState(false);
+  const navigate = useNavigate();
   const [post, setPost] = React.useState({});
   const [comments, setComments] = React.useState([]);
   const [profile, setProfile] = React.useState({});
@@ -53,20 +53,18 @@ export default function PostDetail() {
 
   React.useEffect(() => {
     fetchComments();
-  }, [loading]);
+  }, []);
 
   React.useEffect(() => {
     socketClient.emit("join-post", postId);
   }, [postId]);
 
   React.useEffect(() => {
-    socketClient.on("new-comment", (newComment) => {
-      setComments((prevComment) => {
-        const newComments = [...prevComment, newComment];
-        return (prevComment = newComments);
-      });
+    socketClient.on("newCommentClient", (newComment) => {
+      const newComments = [...comments, newComment];
+      setComments(newComments);
     });
-  }, []);
+  }, [comments]);
 
   const handleAddComment = async (value) => {
     const incRes = await request({
@@ -75,6 +73,7 @@ export default function PostDetail() {
     });
 
     const datapost = { ...incRes.data, userId: user };
+    console.log(datapost);
     setPost(datapost);
 
     const res = await request({
@@ -82,10 +81,21 @@ export default function PostDetail() {
       method: "POST",
       data: value,
     });
-    console.log(res);
     const data = { ...res.data, userId: user };
-    // setComments((prev) => [...prev, data]);
-    setLoading(!loading);
+    console.log(data);
+    const newComments = [...comments, data];
+    setComments(newComments);
+    socketClient.emit("newComment", data);
+  };
+  const handleDeletePost = async (value) => {
+    if (window.confirm("Bạn có chắc muốn xóa bài viết này?")) {
+      setPost({});
+      await request({
+        url: `/posts/${value._id}`,
+        method: "DELETE",
+      });
+    }
+    navigate("/");
   };
 
   return (
@@ -96,7 +106,7 @@ export default function PostDetail() {
         </div>
         <div className="flex-grow-1 overflow-auto">
           <div className="mb-3 bg-white p-2 rounded-3">
-            <PostCard post={post} commentCount={commentCount} />
+            <PostCard post={post} handleDeletePost={handleDeletePost} />
           </div>
         </div>
       </ContentLayout>

@@ -7,10 +7,11 @@ import socketClient from "../../socket";
 
 export default function ButtonHome({ post, like, commentCount }) {
   const [likes, setLikes] = React.useState(like);
+
   const user = useAuth();
   const handlexxx = React.useCallback(() => {
     async function handleClickLike() {
-      const checkLike = likes.includes(user._id);
+      const checkLike = likes?.includes(user._id);
       if (checkLike) {
         await request({
           url: `/posts/${post._id}/unLike`,
@@ -38,18 +39,29 @@ export default function ButtonHome({ post, like, commentCount }) {
     if (socketClient.connected) {
       socketClient.on("likeToClient", (data) => {
         console.log(data);
+        setLikes(data);
       });
     }
+    return () => socketClient.off("likeToClient");
+  }, []);
+  React.useEffect(() => {
+    if (socketClient.connected) {
+      socketClient.on("unLikeToClient", (data) => {
+        console.log(data);
+
+        setLikes(data);
+      });
+    }
+    return () => socketClient.off("unLikeToClient");
   }, []);
 
   const cls = likes?.includes(user._id)
     ? "btn btn-white text-primary w-50"
     : "btn btn-white w-50";
-
   return (
     <div className="mt-2 border-top">
       <button className={cls} onClick={handlexxx}>
-        {<Icon.ThumbsUp />} {likes?.length}
+        {<Icon.ThumbsUp />} {likes ? likes?.length : like?.length}
       </button>
       <Link to={`/posts/${post._id}`}>
         <button className="btn btn-white w-50">

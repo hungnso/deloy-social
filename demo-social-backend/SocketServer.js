@@ -6,7 +6,7 @@ const SocketSever = (socket) => {
   socket.on("join-user", (user) => {
     if (user?._id) {
       users.push({ id: user?._id, socketId: socket.id });
-      console.log(users);
+      console.log("9", users);
     }
   });
 
@@ -18,17 +18,16 @@ const SocketSever = (socket) => {
 
   /// Likes
   socket.on("likePost", (newPost) => {
-    console.log("like", newPost);
-    const clients = users.filter((user) => newPost.includes(user.id));
-    if (clients.length > 0) {
-      clients.forEach((client) => {
-        socket.to(`${client.socketId}`).emit("likeToClient", newPost);
-      });
-    }
-    console.log("23", clients);
+    socket.broadcast.emit("likeToClient", newPost);
   });
   socket.on("unlikePost", (newPost) => {
-    console.log("unlike", newPost);
+    socket.broadcast.emit("unLikeToClient", newPost);
+  });
+
+  /// Comments
+  socket.on("newComment", (newCommet) => {
+    console.log(newCommet);
+    socket.broadcast.emit("newCommentClient", newCommet);
   });
 
   socket.on("disconnect", () => {

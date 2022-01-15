@@ -2,13 +2,14 @@ const router = require("express").Router();
 const auth = require("../../middleware/auth");
 const postCtrl = require("./postCtrl");
 
-router.post('/create', auth, postCtrl.createPost)
-router.get('/', auth, postCtrl.getAllPosts)
-router.get('/user/:userId', auth, postCtrl.getPostByUserId)
-router.get('/post/:postId', auth, postCtrl.getPostId)
-router.put('/:postId/like', auth, postCtrl.likePost)
-router.put('/:postId/unLike', auth, postCtrl.unLikePost)
-router.put('/:postId/incCommentPost', auth, postCtrl.incCommentPost)
+router.post("/create", auth, postCtrl.createPost);
+router.get("/", auth, postCtrl.getAllPosts);
+router.get("/user/:userId", auth, postCtrl.getPostByUserId);
+router.get("/post/:postId", auth, postCtrl.getPostId);
+router.put("/:postId/like", auth, postCtrl.likePost);
+router.put("/:postId/unLike", auth, postCtrl.unLikePost);
+router.put("/:postId/incCommentPost", auth, postCtrl.incCommentPost);
+router.delete("/:postId/", auth, postCtrl.deletePost);
 
 // router
 //   .route("/posts")

@@ -11,7 +11,7 @@ const EditPost = ({ post, handleDeletePost }) => {
   const dispatch = useDispatch();
   const user = useAuth();
 
-  const handleEditPost = () => { 
+  const handleEditPost = () => {
     navigate(`/edit-post/${post._id}`);
   };
 
@@ -32,7 +32,7 @@ const EditPost = ({ post, handleDeletePost }) => {
             </div>
             <div
               className="dropdown-item"
-              onClick={() => handleDeletePost(post._id)}
+              onClick={() => handleDeletePost(post)}
             >
               <span className="material-icons">delete_outline</span> Remove Post
             </div>
