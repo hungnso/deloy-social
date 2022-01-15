@@ -10,6 +10,8 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { Button, Spinner } from 'react-bootstrap';
+import * as Icon from 'react-feather';
+
 export default function EditPost() {
     const { postId } = useParams()
     const userMe = useAuth();
@@ -124,22 +126,23 @@ export default function EditPost() {
                 </div>
                 <div className='flex-grow-1 overflow-auto'>
                     <div>
-                        <input type='file' className='form-control' onChange={handleChangeFile} />
+                        <label htmlFor='inputUpload' className='p-1 border border-primary'><Icon.Upload /> Upload ( <small className='text-danger'><i>png, jpg, jpeg</i></small>)</label>
+                        <input type='file' id='inputUpload' className='form-control d-none' onChange={handleChangeFile} />
                     </div>
                     {renderImage()}
                     <Ckeditor value={text} setValue={setText} />
                     {
                         load ? (
                             <Button variant="primary" disabled className='mt-2'>
-                            <Spinner
-                              as="span"
-                              animation="border"
-                              size="sm"
-                              role="status"
-                              aria-hidden="true"
-                            />
-                            <span className="visually-hidden">Loading...</span>
-                          </Button>
+                                <Spinner
+                                    as="span"
+                                    animation="border"
+                                    size="sm"
+                                    role="status"
+                                    aria-hidden="true"
+                                />
+                                <span className="visually-hidden">Loading...</span>
+                            </Button>
                         ) : (
                             <button
                                 className='btn btn-primary mt-2'
