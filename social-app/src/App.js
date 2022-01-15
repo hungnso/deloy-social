@@ -19,7 +19,8 @@ import PrivatePage from "./Pages/RulePage/PrivatePage";
 import EditProfile from "./Pages/EditProfile/Editprofile";
 import socketClient from "./socket";
 import LoadingPage from "./Components/Loading/LoadingPage"
-import ErrorPage from "./Components/Loading/NotFoundPage"
+import ErrorPage from "./Components/Loading/NotFoundPage";
+import EditPost from "./Pages/EditPost/EditPost";
 
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
         <Route path="/friends" element={<AddFriends />} />
         <Route path="/user/:userId" element={<UserDetail />} />
         <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/edit-post/:postId" element={<EditPost />} />
       </Route>
       <Route path="*" element={<ErrorPage/>} />  
     </Routes>

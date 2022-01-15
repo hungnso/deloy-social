@@ -4,6 +4,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import request from "../../Api/request";
+import { toast } from 'react-toastify';
+import { Button, Spinner } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 const schema = yup.object({
   username: yup.string().required(),
@@ -12,8 +15,11 @@ const schema = yup.object({
 }).required();
 
 export default function Login() {
+  const [load, setLoad] = React.useState(false);
+  const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
   const onSubmit = async data => {
+    setLoad(true)
     try {
       const res = await request({
         method: 'POST',
@@ -36,10 +42,11 @@ export default function Login() {
         data: { userId: res.data._id }
       })
 
-      alert(res.message)
-
+      setLoad(false)
+      toast.success('Register success !')
+      navigate('/login')
     } catch (error) {
-      alert('Đăng ký thất bại!')
+      toast.error('Register error !')
     }
   }
 
@@ -77,7 +84,22 @@ export default function Login() {
             {...register('password', { minLength: 6, required: true })} />
           {errors.password && <div className="invalid-feedback">{errors.password?.message}</div>}
         </div>
-        <button type="submit" className="btn btn-primary">Register</button>
+        {
+          load ? (
+            <Button variant="primary" disabled>
+              <Spinner
+                as="span"
+                animation="border"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+              />
+              <span className="visually-hidden">Loading...</span>
+            </Button>
+          ) : (
+            <button type="submit" className="btn btn-primary">Register</button>
+          )
+        }
         <div>
           <span>Have an account ?</span> <Link className="btn btn-link" to='/login'>Login</Link>
         </div>

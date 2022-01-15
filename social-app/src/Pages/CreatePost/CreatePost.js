@@ -7,12 +7,14 @@ import request from "../../Api/request";
 import ListFollow from '../../Components/Follow/ListFollow';
 import useAuth from '../../hooks/useAuth';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import { Button, Spinner } from 'react-bootstrap';
 
 export default function CreatePost() {
   const userMe = useAuth();
   const [image, setImage] = React.useState();
   const [text, setText] = React.useState('');
+  const [load, setLoad] = React.useState(false);
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -39,8 +41,9 @@ export default function CreatePost() {
   }
 
   const handleClickCreatepost = async () => {
+    setLoad(true)
     if (text === '') {
-      toast.success('Content is required !')
+      toast.error('Content is required !')
     } else {
       try {
         let bodyFormData = new FormData();
@@ -65,6 +68,7 @@ export default function CreatePost() {
         })
 
         toast.success('Create post success!')
+        setLoad(false)
         navigate('/')
       } catch (err) {
         toast.error('Create post error!')
@@ -84,7 +88,22 @@ export default function CreatePost() {
           </div>
           {renderImage()}
           <Ckeditor value={text} setValue={setText} />
-          <button className='btn btn-primary mt-2' onClick={handleClickCreatepost}>Create</button>
+          {
+            load ? (
+              <Button variant="primary" disabled className='mt-2'>
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+                <span className="visually-hidden">Loading...</span>
+              </Button>
+            ) : (
+              <button className='btn btn-primary mt-2' onClick={handleClickCreatepost}>Create</button>
+            )
+          }
         </div>
       </ContentLayout>
       <RightSidebarLayout>

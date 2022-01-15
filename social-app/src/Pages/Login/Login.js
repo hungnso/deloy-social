@@ -7,6 +7,8 @@ import request from "../../Api/request";
 import { useDispatch } from "react-redux";
 import { login } from '../../redux/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { Button, Spinner } from 'react-bootstrap';
 
 
 const schema = yup.object({
@@ -15,16 +17,20 @@ const schema = yup.object({
 }).required();
 
 export default function Register() {
+  const [load, setLoad] = React.useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
   const onSubmit = async (data) => {
+    setLoad(true)
     const { email, password } = data
     try {
       await dispatch(login({ email, password })).unwrap()
+      toast.success('Login success!')
+      setLoad(false)
       navigate('/')
     } catch (error) {
-      alert('Fail Login!')
+      toast.error('Login error!')
     }
   }
 
@@ -53,11 +59,26 @@ export default function Register() {
             {...register('password', { minLength: 6, required: true })} />
           {errors.password && <div className="invalid-feedback">{errors.password?.message}</div>}
         </div>
-        <button type="submit" className="btn btn-primary">Login</button>
+        {
+          load ? (
+            <Button variant="primary" disabled>
+              <Spinner
+                as="span"
+                animation="border"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+              />
+              <span className="visually-hidden">Loading...</span>
+            </Button>
+          ) : (
+            <button type="submit" className="btn btn-primary">Login</button>
+          )
+        }
         <div>
           <span>Don't have an account ?</span> <Link className="btn-link" to='/register'>Register</Link>
         </div>
       </form>
-    </div>
+    </div >
   );
 }

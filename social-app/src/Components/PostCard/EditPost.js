@@ -5,13 +5,15 @@ import useAuth from "../../hooks/useAuth";
 
 const EditPost = ({ post, handleDeletePost }) => {
   const baseUrl = process.env.BASE_URL;
-  console.log(handleDeletePost);
+  // console.log(handleDeletePost);
   let navigate = useNavigate();
   // const { user, socket } = useSelector((state) => state);
   const dispatch = useDispatch();
   const user = useAuth();
 
-  const handleEditPost = () => {};
+  const handleEditPost = () => { 
+    navigate(`/edit-post/${post._id}`);
+  };
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(`${baseUrl}/post/${post._id}`);

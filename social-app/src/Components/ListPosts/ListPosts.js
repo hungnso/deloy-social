@@ -7,8 +7,10 @@ import LoadingPost from '../Loading/LoadingPost'
 export default function ListPosts() {
   const [posts, setPosts] = React.useState([])
   const [skip, setSkip] = React.useState(0)
+  const [load, setLoad] = React.useState(false)
 
   const fetchPosts = async (skip) => {
+    setLoad(true)
     const res = await request({
       url: '/posts',
       params: {
@@ -17,7 +19,7 @@ export default function ListPosts() {
       method: 'GET',
     })
     if (res.data) {
-      
+      setLoad(false)
       return res.data
     }
   }
@@ -32,12 +34,12 @@ export default function ListPosts() {
   }, [])
 
   const scrollData = async () => {
-    console.log('render')
-    console.log('skip', skip)
+    setLoad(true)
     const newSkip = (skip +4)
     const data =  await fetchPosts(skip)
     setPosts(prePosts=> [...prePosts, ...data])
     setSkip(newSkip)
+    setLoad(false)
   }
 
 
@@ -54,7 +56,7 @@ export default function ListPosts() {
         posts.map(post => {
           return (
             <div key={post._id} className="mb-3 bg-white p-2 rounded-3">
-              <PostCard post={post} />
+              <PostCard post={post} load={load} />
             </div>
           )
         })
