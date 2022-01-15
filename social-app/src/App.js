@@ -18,6 +18,7 @@ import GuestPage from "./Pages/RulePage/GuestPage";
 import PrivatePage from "./Pages/RulePage/PrivatePage";
 import EditProfile from "./Pages/EditProfile/Editprofile";
 import socketClient from "./socket";
+import LoadingPage from "./Components/Loading/LoadingPage"
 
 function App() {
   const status = useSelector((state) => state.user.status);
@@ -33,7 +34,7 @@ function App() {
   }, [dispatch]);
 
   if (status === "idle" || status === "loading")
-    return <div>Full page loading...</div>;
+    return <LoadingPage/>;
   if (status === "error") return <div>Error</div>;
 
   return (
