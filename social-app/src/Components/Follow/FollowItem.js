@@ -48,7 +48,7 @@ export default function FollowItem({ follow, page }) {
 
   return (
     <>
-      <div className="d-flex rounded justify-content-between align-items-center mt-3">
+      <div className="d-flex rounded justify-content-between align-items-center ">
         <div>
           <Link
             to={`/user/${follow._id}`}

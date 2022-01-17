@@ -20,7 +20,7 @@ export default function MainLayout({ children }) {
         >
           <Header />
         </div>
-        <div className="flex-grow-1 d-flex" style={{ height: "95vh" }}>
+        <div className="flex-grow-1 d-flex" style={{ height: "93vh" }}>
           <LeftSidebarLayout>
             <ListMenuBar />
           </LeftSidebarLayout>

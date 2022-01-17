@@ -53,7 +53,7 @@ export default function Home() {
         {/* <div className="text-center my-2">
           <h4>Home</h4>
         </div> */}
-        <div className="flex-grow-1 overflow-auto m-2">
+        <div className="flex-grow-1 m-2">
           <ListPosts />
         </div>
       </ContentLayout>

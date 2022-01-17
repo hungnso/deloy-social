@@ -58,8 +58,9 @@ export default function ListPosts() {
       dataLength={posts.length} //This is important field to render the next data
       next={scrollData}
       hasMore={true}
-      height="800px"
+      height="93vh"
       // loader={<LoadingPost />}
+      // scrollableTarget="scrollableDiv"
     >
       {posts.map((post) => {
         return (
