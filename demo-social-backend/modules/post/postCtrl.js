@@ -159,7 +159,7 @@ const deletePost = async (req, res) => {
     { new: true }
   );
   res.send({
-    success: 1,
+    success: "da xoa",
     data: deletePost,
   });
 };

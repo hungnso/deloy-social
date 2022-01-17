@@ -11,9 +11,11 @@ const { Server } = require("socket.io");
 const UserRouter = require("./modules/user");
 const FollowRouter = require("./modules/follow");
 const PostRouter = require("./modules/post");
+const NofifyRouter = require("./modules/notify");
 const CommentRouter = require("./modules/comment");
 const UploadRouter = require("./modules/upload/upload.router");
 const errorHandler = require("./common/errorHandler");
+
 const EventEmitter = require("events");
 
 ioEvent = new EventEmitter();
@@ -60,6 +62,7 @@ async function main() {
   app.use("/api/comments", CommentRouter);
   app.use("/api/follows", FollowRouter);
   app.use("/api/users", UserRouter);
+  app.use("/api/notify", NofifyRouter);
   app.use(errorHandler);
 
   const port = process.env.PORT || 9000;

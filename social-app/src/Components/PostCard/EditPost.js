@@ -19,7 +19,7 @@ const EditPost = ({ post, handleDeletePost }) => {
     navigator.clipboard.writeText(`${baseUrl}/post/${post._id}`);
   };
   return (
-    <div className="nav-item dropdown">
+    <div className="nav-item dropdown mr-2 ">
       <span className="material-icons" id="moreLink" data-toggle="dropdown">
         more_horiz
       </span>
@@ -27,20 +27,21 @@ const EditPost = ({ post, handleDeletePost }) => {
       <div className="dropdown-menu">
         {user._id === post.userId?._id && (
           <>
-            <div className="dropdown-item" onClick={handleEditPost}>
-              <span className="material-icons">create</span> Edit Post
+            <div className="dropdown-item d-flex " onClick={handleEditPost}>
+              <span className="material-icons mr-2">create</span> Edit Post
             </div>
             <div
-              className="dropdown-item"
+              className="dropdown-item d-flex "
               onClick={() => handleDeletePost(post)}
             >
-              <span className="material-icons">delete_outline</span> Remove Post
+              <span className="material-icons mr-2">delete_outline</span> Remove
+              Post
             </div>
           </>
         )}
 
-        <div className="dropdown-item" onClick={handleCopyLink}>
-          <span className="material-icons">content_copy</span> Copy Link
+        <div className="dropdown-item d-flex " onClick={handleCopyLink}>
+          <span className="material-icons mr-2">content_copy</span> Copy Link
         </div>
       </div>
     </div>

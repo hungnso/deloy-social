@@ -1,0 +1,12 @@
+.header-avatar {
+  margin-left: 30px;
+  display: flex;
+  align-items: center;
+}
+.icon-item {
+  margin-right: 50px;
+}
+.button-header {
+  margin-right: 10px;
+  border: none;
+}

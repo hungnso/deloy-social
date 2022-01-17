@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom"
-import useAuth from '../../hooks/useAuth';
+import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 import ButtonAdd from "../Button/ButtonAdd";
 import request from "../../Api/request";
 
@@ -8,61 +8,65 @@ export default function FollowItem({ follow, page }) {
   const userMe = useAuth();
   const [statusFollow, setStatusFollow] = React.useState(false);
 
-  const [following, setFollowing] = React.useState([])
+  const [following, setFollowing] = React.useState([]);
   const fetchFollowId = async () => {
     const res = await request({
       url: `/follows/${userMe._id}`,
-      method: 'GET',
-    })
+      method: "GET",
+    });
 
     if (res.data) {
-      setFollowing(res.data.following)
+      setFollowing(res.data.following);
     }
-  }
+  };
 
   React.useEffect(() => {
-    fetchFollowId()
-  }, [statusFollow])
+    fetchFollowId();
+  }, [statusFollow]);
 
-  
   const handleClickfollow = async (userId) => {
     const res = await request({
-      url: 'follows/following',
-      method: 'PUT',
-      data: { userId }
-    })
+      url: "follows/following",
+      method: "PUT",
+      data: { userId },
+    });
     if (res.data) {
-      setStatusFollow(!statusFollow)
+      setStatusFollow(!statusFollow);
     }
-  }
+  };
 
   const handleClickUnfollow = async (userId) => {
     const res = await request({
-      url: 'follows/unfollow',
-      method: 'PUT',
-      data: { userId }
-    })
+      url: "follows/unfollow",
+      method: "PUT",
+      data: { userId },
+    });
     if (res.data) {
-      setStatusFollow(!statusFollow)
+      setStatusFollow(!statusFollow);
     }
-  }
+  };
 
   return (
     <>
-      <div className='d-flex rounded justify-content-between align-items-center'>
+      <div className="d-flex rounded justify-content-between align-items-center mt-3">
         <div>
-          <Link to={`/user/${follow._id}`} className='text-dark text-decoration-none'>
-            <div className='d-flex align-items-center'>
+          <Link
+            to={`/user/${follow._id}`}
+            className="text-dark text-decoration-none"
+          >
+            <div className="d-flex align-items-center">
               <div>
                 <img
-                  className='rounded-circle border border-white'
-                  style={{ width: 40, height: 40, objectFit: 'cover' }}
+                  className="rounded-circle border border-white"
+                  style={{ width: 40, height: 40, objectFit: "cover" }}
                   src={follow.avatar}
                   alt="user"
                 />
               </div>
-              <div className="flex-grow-1 ms-2" >
-                <div><b>{follow.username}</b></div>
+              <div className="flex-grow-1 ms-2">
+                <div>
+                  <b>{follow.username}</b>
+                </div>
               </div>
             </div>
           </Link>
@@ -78,5 +82,5 @@ export default function FollowItem({ follow, page }) {
         </div>
       </div>
     </>
-  )
+  );
 }

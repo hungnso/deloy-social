@@ -18,10 +18,10 @@ import GuestPage from "./Pages/RulePage/GuestPage";
 import PrivatePage from "./Pages/RulePage/PrivatePage";
 import EditProfile from "./Pages/EditProfile/Editprofile";
 import socketClient from "./socket";
-import LoadingPage from "./Components/Loading/LoadingPage"
+import LoadingPage from "./Components/Loading/LoadingPage";
 import ErrorPage from "./Components/Loading/NotFoundPage";
 import EditPost from "./Pages/EditPost/EditPost";
-
+import Skeleton from "./Components/Loading/Skeleton";
 
 function App() {
   const status = useSelector((state) => state.user.status);
@@ -36,9 +36,8 @@ function App() {
     dispatch(fetchUserInfo());
   }, [dispatch]);
 
-  if (status === "idle" || status === "loading")
-    return <LoadingPage/>;
-  if (status === "error") return <ErrorPage/>;
+  if (status === "idle" || status === "loading") return <LoadingPage />;
+  if (status === "error") return <ErrorPage />;
 
   return (
     <Routes>
@@ -54,8 +53,9 @@ function App() {
         <Route path="/user/:userId" element={<UserDetail />} />
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/edit-post/:postId" element={<EditPost />} />
+        <Route path="/test" element={<Skeleton />} />
       </Route>
-      <Route path="*" element={<ErrorPage/>} />  
+      <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
 }

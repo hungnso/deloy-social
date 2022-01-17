@@ -19,13 +19,13 @@ export default function ListPosts() {
       method: "GET",
     });
     if (res.data) {
-      setLoad(false);
       return res.data;
     }
   };
 
   const renderPosts = async () => {
     const data = await fetchPosts(skip);
+    setLoad(false);
     setPosts(data);
   };
 
@@ -51,14 +51,15 @@ export default function ListPosts() {
     setSkip(newSkip);
     setLoad(false);
   };
+  console.log(load);
 
   return (
     <InfiniteScroll
       dataLength={posts.length} //This is important field to render the next data
       next={scrollData}
       hasMore={true}
-      height="500px"
-      loader={<LoadingPost />}
+      height="800px"
+      // loader={<LoadingPost />}
     >
       {posts.map((post) => {
         return (
