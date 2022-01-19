@@ -1,6 +1,8 @@
 import React from 'react';
 import * as Icon from 'react-feather';
 import useAuth from '../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
+import request from '../../Api/request'
 
 export default function ButtonAdd({
   userId,
@@ -10,6 +12,7 @@ export default function ButtonAdd({
   handleClickUnfollow,
   handleClickfollow
 }) {
+  const navigate = useNavigate();
   const userMe = useAuth();
 
   const renderHome = () => {
@@ -101,12 +104,22 @@ export default function ButtonAdd({
     )
   }
 
+  const handleClickMessage = async () => {
+    const res = await request({
+      url: `/message/create/${userId}`,
+      method: 'GET'
+    })
+    if(res.data){
+      navigate(`/message/${userId}`)
+    }
+  }
+
   return (
     <div className='d-flex align-items-center'>
       <div>
         <button
           className='btn p-1 m-1'
-        // onClick={() => { handleClickUnfollow(follow._id) }}
+          onClick={handleClickMessage}
         >
           <Icon.MessageCircle />
         </button>

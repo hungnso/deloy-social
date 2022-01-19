@@ -17,10 +17,8 @@ export default function FriendsLayout({ children }) {
         >
           <Header />
         </div>
-        <div className="flex-grow-1 d-flex" style={{ height: "95vh" }}>
-          <LeftSidebarLayout>
-            <ListMenuBar />
-          </LeftSidebarLayout>
+        <div className="flex-grow-1 d-flex" style={{ height: "93vh" }}>
+         
           {children}
         </div>
       </div>

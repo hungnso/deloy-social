@@ -22,6 +22,7 @@ import LoadingPage from "./Components/Loading/LoadingPage";
 import ErrorPage from "./Components/Loading/NotFoundPage";
 import EditPost from "./Pages/EditPost/EditPost";
 import Skeleton from "./Components/Loading/Skeleton";
+import Message from "./Pages/Message/Message";
 
 function App() {
   const status = useSelector((state) => state.user.status);
@@ -53,6 +54,7 @@ function App() {
         <Route path="/user/:userId" element={<UserDetail />} />
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/edit-post/:postId" element={<EditPost />} />
+        <Route path="/message/:userId" element={<Message />} />
         <Route path="/test" element={<Skeleton />} />
       </Route>
       <Route path="*" element={<ErrorPage />} />

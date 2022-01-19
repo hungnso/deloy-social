@@ -88,7 +88,7 @@ export default function PostDetail() {
     socketClient.emit("newComment", data);
   };
   const handleDeletePost = async (value) => {
-    if (window.confirm("Bạn có chắc muốn xóa bài viết này?")) {
+    if (window.confirm("Do you want to delete post?")) {
       setPost({});
       await request({
         url: `/posts/${value._id}`,

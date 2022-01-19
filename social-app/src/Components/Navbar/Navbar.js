@@ -28,9 +28,9 @@ export default function Navbar() {
         <Link className="nav-link text-black icon-item  my-2" to="/">
           <Icon.Home />
         </Link>
-        <a className="nav-link text-black icon-item  my-2" href="#">
+        <Link className="nav-link text-black icon-item  my-2" to="/message">
           <Icon.MessageCircle />
-        </a>
+        </Link>
         <Link className="nav-link text-black icon-item  my-2" to="/friends">
           <Icon.UserPlus />
         </Link>
