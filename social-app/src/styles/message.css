@@ -1,0 +1,19 @@
+.search-message {
+  border-radius: 12px;
+  text-align: center;
+}
+.item-name {
+  margin-left: 8px;
+}
+.header-message {
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  border-bottom: 1px solid goldenrod;
+  margin-right: 10px;
+}
+.content-message {
+  background-color: #fff;
+  padding-top: 16px;
+  margin-right: 10px;
+}

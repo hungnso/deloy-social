@@ -1,50 +1,40 @@
 const UserModel = require("../auth/auth");
-const ProfileModel = require('../profile/profile');
-const FollowModel = require('../follow/follow')
-const slugify = require('slugify')
+const ProfileModel = require("../profile/profile");
+const FollowModel = require("../follow/follow");
+const slugify = require("slugify");
 
 const searchUser = async (req, res) => {
+  const { keyword } = req.body;
 
-  const { keyword } = req.body
-
-  const users = await ProfileModel
-  .find({
-    slugUsername: { $regex: new RegExp(`${slugify(keyword)}`, 'i') },
-  })
-  .populate({
-    path: 'userId',
-    select: 'username avatar'
-  })
+  const users = await ProfileModel.find({
+    slugUsername: { $regex: new RegExp(`${slugify(keyword)}`, "i") },
+  }).populate({
+    path: "userId",
+    select: "username avatar",
+  });
 
   res.send({
     success: true,
     data: users,
   });
-}
+};
 
 const getAllUser = async (req, res) => {
-
-  const users = await ProfileModel
-    .find()
+  const { skip, limit } = req.query;
+  const users = await ProfileModel.find()
     // .sort({ followers: -1 })
-    .limit(5)
+    // .limit(5)
     .populate({
-      path: 'userId',
-      select: 'username avatar'
+      path: "userId",
+      select: "username avatar",
     })
+    .limit(Number(limit));
 
   res.send({
     success: true,
     data: users,
   });
-}
-
-
-
-
-
-
-
+};
 
 //   updateUser: async (req, res) => {
 //     try {
@@ -67,8 +57,7 @@ const getAllUser = async (req, res) => {
 //   },
 // };
 
-
 module.exports = {
   getAllUser,
-  searchUser
+  searchUser,
 };

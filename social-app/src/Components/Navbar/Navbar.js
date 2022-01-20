@@ -37,9 +37,7 @@ export default function Navbar() {
         <Link className="nav-link  text-black icon-item my-2" to="/create-post">
           <Icon.FilePlus />
         </Link>
-        <a className="nav-link text-black icon-item  my-2" href="#">
-          <Icon.List />
-        </a>
+
         <div className="btn-group">
           <button
             type="button"
@@ -49,14 +47,14 @@ export default function Navbar() {
           >
             <Icon.Bell />
           </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-            <button class="dropdown-item" type="button">
+          <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <button className="dropdown-item" type="button">
               Action
             </button>
-            <button class="dropdown-item" type="button">
+            <button className="dropdown-item" type="button">
               Another action
             </button>
-            <button class="dropdown-item" type="button">
+            <button className="dropdown-item" type="button">
               Something else here
             </button>
           </div>

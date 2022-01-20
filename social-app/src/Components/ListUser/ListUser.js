@@ -13,6 +13,9 @@ export default function ListUser() {
     const res = await request({
       url: "/users",
       method: "GET",
+      params: {
+        limit: 5,
+      },
     });
     if (res.data) {
       const allUsers = res.data;

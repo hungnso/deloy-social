@@ -61,6 +61,7 @@ export default function PostDetail() {
 
   React.useEffect(() => {
     socketClient.on("newCommentClient", (newComment) => {
+      console.log(newComment);
       const newComments = [...comments, newComment];
       setComments(newComments);
     });
