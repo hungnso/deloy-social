@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useMatch, useResolvedPath } from "react-router-dom";
 import * as Icon from "react-feather";
 import useAuth from "../../hooks/useAuth";
 import { useDispatch } from "react-redux";
@@ -10,6 +10,20 @@ export default function Navbar() {
   const dispatch = useDispatch();
   const user = useAuth();
   const navigate = useNavigate();
+
+  function CustomLink({ children, to, ...props }) {
+    let resolved = useResolvedPath(to);
+    let match = useMatch({ path: resolved.pathname, end: true });
+
+    return (
+      <div>
+        <Link style={{ color: match ? "#0d6efd" : "none" }} to={to} {...props}>
+          {children}
+        </Link>
+        {match && ""}
+      </div>
+    );
+  }
 
   return (
     <div className="w-100 align-items d-flex justify-content-between p-0">
@@ -25,20 +39,20 @@ export default function Navbar() {
         />
       </div>
       <nav className="nav flex-row px-1 justify ">
-        <Link className="nav-link text-black icon-item  my-2" to="/">
+        <CustomLink className=" icon-navbar  icon-item my-2" to="/">
           <Icon.Home />
-        </Link>
-        <Link className="nav-link text-black icon-item  my-2" to="/message">
+        </CustomLink>
+        <CustomLink className="icon-navbar icon-item  my-2" to="/message">
           <Icon.MessageCircle />
-        </Link>
-        <Link className="nav-link text-black icon-item  my-2" to="/friends">
-          <Icon.UserPlus />
-        </Link>
-        <Link className="nav-link  text-black icon-item my-2" to="/create-post">
+        </CustomLink>
+        <CustomLink className=" icon-navbar icon-item my-2" to="/create-post">
           <Icon.FilePlus />
-        </Link>
+        </CustomLink>
+        <CustomLink className="icon-navbar  icon-item  my-2" to="/friends">
+          <Icon.UserPlus />
+        </CustomLink>
 
-        <div className="btn-group">
+        {/* <div className="btn-group">
           <button
             type="button"
             className="btn  dropdown-toggle"
@@ -58,7 +72,7 @@ export default function Navbar() {
               Something else here
             </button>
           </div>
-        </div>
+        </div> */}
       </nav>
       <div className="btn-group  button-header ">
         <button

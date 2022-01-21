@@ -102,10 +102,7 @@ export default function PostDetail() {
   return (
     <MainLayout>
       <ContentLayout>
-        <div className="text-center my-2">
-          <h4>Post Detail</h4>
-        </div>
-        <div className="flex-grow-1 overflow-auto">
+        <div className="flex-grow-1 overflow-auto mt-2">
           <div className="mb-3 bg-white p-2 rounded-3">
             <PostCard post={post} handleDeletePost={handleDeletePost} />
           </div>
