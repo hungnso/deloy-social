@@ -22,7 +22,7 @@ export default function MenuItem() {
             <li
               key={index}
               className="list-group-item border-0"
-              style={{ backgroundColor: "#F0F2F5",  }}
+              style={{ backgroundColor: "#F0F2F5" }}
             >
               <Link to={link.link}>
                 <div className="d-flex align-items-center">
@@ -33,7 +33,7 @@ export default function MenuItem() {
                     />
                   </div>
                   <div>
-                    <b>{link.value}</b>
+                    <b style={{ textDecoration: "none" }}>{link.value}</b>
                   </div>
                 </div>
               </Link>
