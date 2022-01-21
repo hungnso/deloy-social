@@ -77,6 +77,28 @@ const getPostByUserId = async (req, res) => {
   });
 };
 
+const updatePost = async (req, res) => {
+  const { postId } = req.params;
+  const { user } = req;
+  const updatePostData = req.body;
+
+  const updatedPost = await PostModel.findOneAndUpdate(
+    {
+      _id: postId,
+    },
+    updatePostData,
+    { new: true }
+  );
+  if (!updatePostData) {
+    res.status(500).json({ msg: error.message });
+    return;
+  }
+  res.send({
+    success: true,
+    data: updatedPost,
+  });
+};
+
 // updatePost: async (req, res) => {
 //   try {
 //     const { content, images } = req.body;
@@ -224,4 +246,5 @@ module.exports = {
   incCommentPost,
   getPostByUserId,
   deletePost,
+  updatePost,
 };

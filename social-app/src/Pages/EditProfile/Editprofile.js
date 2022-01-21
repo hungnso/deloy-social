@@ -6,7 +6,7 @@ import request from "../../Api/request";
 import ProfileItemEdit from "../../Components/ProfileItemEdit/ProfileItemEdit";
 import * as Icon from "react-feather";
 import { Button } from "react-bootstrap";
-import RightLargeFriends from "../../Components/Layout/RightLargeFriends";
+import RightLargeEditProFile from "../../Components/Layout/RightLargeEditProFile";
 
 export default function EditProfile() {
   const useMe = useAuth();
@@ -94,7 +94,7 @@ export default function EditProfile() {
 
   return (
     <FriendsLayout>
-      <RightLargeFriends>
+      <RightLargeEditProFile>
         <div className="text-center my-2">
           <h4>Edit Profile</h4>
         </div>
@@ -214,7 +214,7 @@ export default function EditProfile() {
             />
           </div>
         </div>
-      </RightLargeFriends>
+      </RightLargeEditProFile>
     </FriendsLayout>
   );
 }

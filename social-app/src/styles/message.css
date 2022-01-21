@@ -17,3 +17,12 @@
   padding-top: 16px;
   margin-right: 10px;
 }
+.text-message {
+  width: 300px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}

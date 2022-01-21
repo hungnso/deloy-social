@@ -10,6 +10,8 @@ import request from "../../Api/request";
 import { useParams } from "react-router-dom";
 import LoadingPage from "../../Components/Loading/LoadingPage";
 import ListChat from "../../Components/ListChat/ListChat";
+import RightLargeMessage from "../../Components/Layout/RightLargeMessage";
+import socketClient from "../../socket";
 
 export default function Message() {
   const user = useAuth();
@@ -31,6 +33,14 @@ export default function Message() {
   React.useEffect(() => {
     fetchListMessages();
   }, [userId]);
+  // React.useEffect(() => {
+  //   socketClient.on("new-message", (message) => {
+  //     const newMessages = [...listChat, message];
+  //     console.log(newMessages);
+  //     setListChat(newMessages);
+  //   });
+  // }, [listChat]);
+  console.log(listMessages);
 
   return (
     <FriendsLayout>
@@ -41,9 +51,9 @@ export default function Message() {
           <LoadingPage />
         )}
       </LeftSidebarLayout>
-      <RightLargeSidebarLayout>
+      <RightLargeMessage>
         {listMessages ? <ListChat userId={userId} /> : <LoadingPage />}
-      </RightLargeSidebarLayout>
+      </RightLargeMessage>
     </FriendsLayout>
   );
 }

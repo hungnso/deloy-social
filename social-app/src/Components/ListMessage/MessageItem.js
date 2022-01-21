@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./message.css";
 
 export default function MessageItem({ message, userId }) {
+  console.log(message);
   const messageEnd = message.chat[message.chat.length - 1];
   const navigate = useNavigate();
   const user = useAuth();
@@ -34,7 +35,7 @@ export default function MessageItem({ message, userId }) {
           <div>
             <b>{member.username}</b>
           </div>
-          <small style={{ color: "gray" }}>
+          <small className="text-message" style={{ color: "gray" }}>
             {" "}
             {messageEnd?.content
               ? messageEnd?.content

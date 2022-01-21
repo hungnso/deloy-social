@@ -6,6 +6,7 @@ router.post("/create", auth, postCtrl.createPost);
 router.get("/", auth, postCtrl.getAllPosts);
 router.get("/user/:userId", auth, postCtrl.getPostByUserId);
 router.get("/post/:postId", auth, postCtrl.getPostId);
+router.put("/edit-post/:postId", auth, postCtrl.updatePost);
 router.put("/:postId/like", auth, postCtrl.likePost);
 router.put("/:postId/unLike", auth, postCtrl.unLikePost);
 router.put("/:postId/incCommentPost", auth, postCtrl.incCommentPost);

@@ -81,6 +81,8 @@ export default function ListMessage({ userId }) {
     setUserChat(kq);
     // console.log(kq);
   }, [userId, users]);
+
+  console.log(listChat);
   return (
     // <div className='mb-2 d-flex flex-column overflow-auto' >
     <>
